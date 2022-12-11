@@ -1,12 +1,20 @@
 // Supported Tokens in the language
 export enum TokenType {
+  // literal types
   Number,
   Identifier,
+
+  // keywords
+  Let,
+
+  // Grouping * operators
   Equals,
   OpenParent,
   CloseParent,
   BinaryOperator,
-  Let,
+
+  // End of file
+  EOF,
 }
 
 // Reserved keywords
@@ -27,6 +35,7 @@ export interface Token {
  * @param type Type of the token
  * @returns Token
  */
+// regular expresion
 function createToken(value = "", type: TokenType): Token {
   return { value, type }
 }
@@ -131,6 +140,8 @@ export function tokenize(sourceCode: string): Token[] {
     } // end of multi-character token
   } // while
 
+  // Adding EOF token
+  tokens.push({ value: "EndOfFile", type: TokenType.EOF })
   return tokens
 }
 
